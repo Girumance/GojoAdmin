@@ -31,7 +31,7 @@ const Results = ({ className, customers, ...rest }) => {
   const [selectedCustomerIds, setSelectedCustomerIds] = useState([]);
   const [limit, setLimit] = useState(10);
   const [page, setPage] = useState(0);
-
+  
   const handleSelectAll = (event) => {
     let newSelectedCustomerIds;
 
@@ -84,7 +84,7 @@ const Results = ({ className, customers, ...rest }) => {
               <TableRow>
                 <TableCell padding="checkbox">
                   <Checkbox
-                    checked={selectedCustomerIds.length === customers.length}
+//checked={selectedCustomerIds.length === customers.length}
                     color="primary"
                     indeterminate={
                       selectedCustomerIds.length > 0
@@ -139,7 +139,7 @@ const Results = ({ className, customers, ...rest }) => {
                         color="textPrimary"
                         variant="body1"
                       >
-                        {customer.name}
+                        {customer.firstName}
                       </Typography>
                     </Box>
                   </TableCell>
@@ -147,10 +147,10 @@ const Results = ({ className, customers, ...rest }) => {
                     {customer.email}
                   </TableCell>
                   <TableCell>
-                    {`${customer.address.city}, ${customer.address.state}, ${customer.address.country}`}
+                    {customer.city}
                   </TableCell>
                   <TableCell>
-                    {customer.phone}
+                    {customer.phoneNumber}
                   </TableCell>
                   <TableCell>
                     {moment(customer.createdAt).format('DD/MM/YYYY')}
