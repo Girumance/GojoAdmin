@@ -2,6 +2,8 @@ import React from 'react';
 import { Link as RouterLink, useNavigate } from 'react-router-dom';
 import * as Yup from 'yup';
 import { Formik } from 'formik';
+import {useDispatch} from "react-redux"
+import {Adduserdata,Login} from "../../action"
 import {
   Box,
   Button,
@@ -15,6 +17,7 @@ import {
 import FacebookIcon from 'src/icons/Facebook';
 import GoogleIcon from 'src/icons/Google';
 import Page from 'src/components/Page';
+import Axios from 'axios';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -25,9 +28,35 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-const LoginView = () => {
+const LoginView = (props) => {
   const classes = useStyles();
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  
+
+  const onLogin= ()=>{
+    const email=document.getElementById("email").value
+    const password=document.getElementById("password").value
+
+    
+      const data = {
+        username:email,
+        password:password
+    }
+
+    const url=process.env.REACT_APP_IP+"login"
+
+    Axios.post(url,data).then( res =>{
+      if(res.data){
+        dispatch(Adduserdata(res.data))
+        dispatch(Login())
+      navigate('/app/dashboard', { replace: true });
+    }
+    }
+    )
+
+
+  }
 
   return (
     <Page
@@ -51,7 +80,7 @@ const LoginView = () => {
               password: Yup.string().max(255).required('Password is required')
             })}
             onSubmit={() => {
-              navigate('/app/dashboard', { replace: true });
+              onLogin()
             }}
           >
             {({
@@ -139,6 +168,7 @@ const LoginView = () => {
                   type="email"
                   value={values.email}
                   variant="outlined"
+                  id="email"
                 />
                 <TextField
                   error={Boolean(touched.password && errors.password)}
@@ -152,15 +182,17 @@ const LoginView = () => {
                   type="password"
                   value={values.password}
                   variant="outlined"
+                  id="password"
                 />
                 <Box my={2}>
                   <Button
                     color="primary"
-                    disabled={isSubmitting}
+                    //disabled={isSubmitting}
                     fullWidth
                     size="large"
                     type="submit"
                     variant="contained"
+                    
                   >
                     Sign in now
                   </Button>
@@ -188,4 +220,4 @@ const LoginView = () => {
   );
 };
 
-export default LoginView;
+export default  LoginView;

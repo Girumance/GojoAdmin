@@ -10,6 +10,7 @@ import Page from 'src/components/Page';
 import Toolbar from './Toolbar';
 import ProductCard from './ProductCard';
 import data from './data';
+import Axios from 'axios';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -25,7 +26,21 @@ const useStyles = makeStyles((theme) => ({
 
 const ProductList = () => {
   const classes = useStyles();
-  const [products] = useState(data);
+  const [products,setProducts] = useState([]);
+  const [customers,setCustomers] = useState([]);
+  const [dataloaded,setDataLoaded] =useState(false)
+
+  if(dataloaded==false){
+
+    const url = process.env.REACT_APP_IP+"property/notApproved"
+    Axios.get(url).then( res => {
+      console.log(res.data)
+      setProducts(res.data)
+    })
+
+    setDataLoaded(true)
+
+  }
 
   return (
     <Page

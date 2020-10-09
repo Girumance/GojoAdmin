@@ -2,10 +2,11 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import clsx from 'clsx';
 import {
-  Avatar,
+  Button,
   Box,
   Card,
   CardContent,
+  CardMedia,
   Divider,
   Grid,
   Typography,
@@ -25,11 +26,16 @@ const useStyles = makeStyles((theme) => ({
   },
   statsIcon: {
     marginRight: theme.spacing(1)
-  }
+  },
+  media: {
+    height: 220,
+  },
 }));
 
 const ProductCard = ({ className, product, ...rest }) => {
   const classes = useStyles();
+
+  const url="http://127.0.0.1:1234/image/downloadProfile/5f7005e86ab4f20e8463b1f8"
 
   return (
     <Card
@@ -37,24 +43,19 @@ const ProductCard = ({ className, product, ...rest }) => {
       {...rest}
     >
       <CardContent>
-        <Box
-          display="flex"
-          justifyContent="center"
-          mb={3}
-        >
-          <Avatar
-            alt="Product"
-            src={product.media}
-            variant="square"
-          />
-        </Box>
+      <CardMedia
+          className={classes.media}
+          image={url}
+          title="Contemplative Reptile"
+        />
+        <CardContent>
         <Typography
           align="center"
           color="textPrimary"
           gutterBottom
           variant="h4"
         >
-          {product.title}
+          {product.titile}
         </Typography>
         <Typography
           align="center"
@@ -63,6 +64,7 @@ const ProductCard = ({ className, product, ...rest }) => {
         >
           {product.description}
         </Typography>
+        </CardContent>
       </CardContent>
       <Box flexGrow={1} />
       <Divider />
@@ -85,7 +87,7 @@ const ProductCard = ({ className, product, ...rest }) => {
               display="inline"
               variant="body2"
             >
-              Updated 2hr ago
+              Date 12/12/12
             </Typography>
           </Grid>
           <Grid
@@ -96,14 +98,15 @@ const ProductCard = ({ className, product, ...rest }) => {
               className={classes.statsIcon}
               color="action"
             />
-            <Typography
+          <Typography
               color="textSecondary"
               display="inline"
               variant="body2"
             >
-              {product.totalDownloads}
-              {' '}
-              Downloads
+            
+              {
+               product.city 
+              }
             </Typography>
           </Grid>
         </Grid>

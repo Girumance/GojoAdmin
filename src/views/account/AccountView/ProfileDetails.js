@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import clsx from 'clsx';
 import PropTypes from 'prop-types';
+import {useSelector} from "react-redux"
 import {
   Box,
   Button,
@@ -34,11 +35,12 @@ const useStyles = makeStyles(() => ({
 
 const ProfileDetails = ({ className, ...rest }) => {
   const classes = useStyles();
+  const userdata = useSelector( state => state.userdata)
   const [values, setValues] = useState({
-    firstName: 'Katarina',
-    lastName: 'Smith',
-    email: 'demo@devias.io',
-    phone: '',
+    firstName: userdata.firstName,
+    lastName: userdata.lastName,
+    email: userdata.email,
+    phone: userdata.phoneNumber,
     state: 'Alabama',
     country: 'USA'
   });

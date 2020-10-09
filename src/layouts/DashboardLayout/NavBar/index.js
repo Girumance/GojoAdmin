@@ -44,7 +44,7 @@ const items = [
   {
     href: '/app/products',
     icon: ShoppingBagIcon,
-    title: 'Products'
+    title: 'Pending Properties'
   },
   {
     href: '/app/account',

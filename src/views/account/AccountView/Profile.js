@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import clsx from 'clsx';
 import moment from 'moment';
+import { useSelector} from "react-redux"
 import {
   Avatar,
   Box,
@@ -16,8 +17,8 @@ import {
 
 const user = {
   avatar: '/static/images/avatars/avatar_6.png',
-  city: 'Los Angeles',
-  country: 'USA',
+  type:"" ,
+  country: 'Ethiopia',
   jobTitle: 'Senior Developer',
   name: 'Katarina Smith',
   timezone: 'GTM-7'
@@ -33,6 +34,7 @@ const useStyles = makeStyles(() => ({
 
 const Profile = ({ className, ...rest }) => {
   const classes = useStyles();
+  const userdata= useSelector(state => state.userdata)
 
   return (
     <Card
@@ -54,13 +56,13 @@ const Profile = ({ className, ...rest }) => {
             gutterBottom
             variant="h3"
           >
-            {user.name}
+            {userdata.firstName + " " + userdata.lastName}
           </Typography>
           <Typography
             color="textSecondary"
             variant="body1"
           >
-            {`${user.city} ${user.country}`}
+            {}
           </Typography>
           <Typography
             className={classes.dateText}
