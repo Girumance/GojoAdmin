@@ -10,6 +10,7 @@ import NotFoundView from 'src/views/errors/NotFoundView';
 import ProductListView from 'src/views/product/ProductListView';
 import RegisterView from 'src/views/auth/RegisterView';
 import SettingsView from 'src/views/settings/SettingsView';
+import AdminListView from "src/views/admin/adminlist"
 
 const routes = [
   {
@@ -21,6 +22,8 @@ const routes = [
       { path: 'dashboard', element: <DashboardView /> },
       { path: 'products', element: <ProductListView /> },
       { path: 'settings', element: <SettingsView /> },
+      { path: 'register', element: <RegisterView /> },
+      {path: "adminlist", element: <AdminListView/>},
       { path: '*', element: <Navigate to="/404" /> }
     ]
   },
@@ -29,7 +32,6 @@ const routes = [
     element: <MainLayout />,
     children: [
       { path: '/', element: <LoginView /> },
-      { path: 'register', element: <RegisterView /> },
       { path: '404', element: <NotFoundView /> },
      // { path: '/', element: <Navigate to="/app/dashboard" /> },
       { path: '*', element: <Navigate to="/404" /> }

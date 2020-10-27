@@ -1,6 +1,8 @@
 import React, { useEffect } from 'react';
 import { Link as RouterLink, useLocation } from 'react-router-dom';
+import {useSelector} from "react-redux"
 import PropTypes from 'prop-types';
+import SupervisorAccountOutlinedIcon from '@material-ui/icons/SupervisorAccountOutlined';
 import {
   Avatar,
   Box,
@@ -47,6 +49,22 @@ const items = [
     title: 'Pending Properties'
   },
   {
+    href: '/login',
+    icon: LockIcon,
+    title: 'Login'
+  },
+  {
+    href: '/app/register',
+    icon: UserPlusIcon,
+    title: 'Add Admin'
+  },
+
+  {
+    href: "/app/adminlist",
+    icon: SupervisorAccountOutlinedIcon,
+    title: "Admins"
+  },
+  {
     href: '/app/account',
     icon: UserIcon,
     title: 'Account'
@@ -55,16 +73,6 @@ const items = [
     href: '/app/settings',
     icon: SettingsIcon,
     title: 'Settings'
-  },
-  {
-    href: '/login',
-    icon: LockIcon,
-    title: 'Login'
-  },
-  {
-    href: '/register',
-    icon: UserPlusIcon,
-    title: 'Register'
   },
   {
     href: '/404',
@@ -92,6 +100,7 @@ const useStyles = makeStyles(() => ({
 const NavBar = ({ onMobileClose, openMobile }) => {
   const classes = useStyles();
   const location = useLocation();
+  const userdata = useSelector(state => state.userdata);
 
   useEffect(() => {
     if (openMobile && onMobileClose) {
@@ -136,13 +145,15 @@ const NavBar = ({ onMobileClose, openMobile }) => {
       <Box p={2}>
         <List>
           {items.map((item) => (
+             userdata.type==="USER" && item.title==="Add Admin" ? console.log("test") : 
+
             <NavItem
               href={item.href}
               key={item.title}
               title={item.title}
               icon={item.icon}
             />
-          ))}
+))}
         </List>
       </Box>
       <Box flexGrow={1} />

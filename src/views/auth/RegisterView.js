@@ -14,6 +14,7 @@ import {
   makeStyles
 } from '@material-ui/core';
 import Page from 'src/components/Page';
+import Axios from 'axios';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -27,6 +28,35 @@ const useStyles = makeStyles((theme) => ({
 const RegisterView = () => {
   const classes = useStyles();
   const navigate = useNavigate();
+
+
+  const onRegister = () =>{
+
+    const firstName = document.getElementById("firstName").value
+    const lastName = document.getElementById("lastName").value
+    const email = document.getElementById("email").value
+    const phone= document.getElementById("phone").value
+    const password = document.getElementById("password").value
+
+
+    const data ={
+      firstName,
+      lastName,
+      email,
+      phoneNumber:phone,
+      password,
+      type:"ADMIN"
+    }
+
+      const url = process.env.REACT_APP_IP+"profile/signup"
+
+      Axios.post(url,data).then( res => {
+
+        console.log(res.data)
+
+      })
+
+  }
 
   return (
     <Page
@@ -46,6 +76,7 @@ const RegisterView = () => {
               firstName: '',
               lastName: '',
               password: '',
+              phone:'+251',
               policy: false
             }}
             validationSchema={
@@ -58,7 +89,9 @@ const RegisterView = () => {
               })
             }
             onSubmit={() => {
-              navigate('/app/dashboard', { replace: true });
+              
+              onRegister();
+              
             }}
           >
             {({
@@ -76,14 +109,14 @@ const RegisterView = () => {
                     color="textPrimary"
                     variant="h2"
                   >
-                    Create new account
+                    Create new account for an Admin
                   </Typography>
                   <Typography
                     color="textSecondary"
                     gutterBottom
                     variant="body2"
                   >
-                    Use your email to create new account
+                    Use his/her email to create new account
                   </Typography>
                 </Box>
                 <TextField
@@ -97,6 +130,7 @@ const RegisterView = () => {
                   onChange={handleChange}
                   value={values.firstName}
                   variant="outlined"
+                  id="firstName"
                 />
                 <TextField
                   error={Boolean(touched.lastName && errors.lastName)}
@@ -109,6 +143,7 @@ const RegisterView = () => {
                   onChange={handleChange}
                   value={values.lastName}
                   variant="outlined"
+                  id="lastName"
                 />
                 <TextField
                   error={Boolean(touched.email && errors.email)}
@@ -122,7 +157,23 @@ const RegisterView = () => {
                   type="email"
                   value={values.email}
                   variant="outlined"
+                  id="email"
                 />
+                  <TextField
+                  error={Boolean(touched.email && errors.email)}
+                  fullWidth
+                  helperText={touched.email && errors.email}
+                  label="Phone Number"
+                  margin="normal"
+                  name="phone"
+                  onBlur={handleBlur}
+                  onChange={handleChange}
+                  type="phone"
+                  value={values.phone}
+                  variant="outlined"
+                  id="phone"
+                />
+
                 <TextField
                   error={Boolean(touched.password && errors.password)}
                   fullWidth
@@ -135,6 +186,7 @@ const RegisterView = () => {
                   type="password"
                   value={values.password}
                   variant="outlined"
+                  id="password"
                 />
                 <Box
                   alignItems="center"

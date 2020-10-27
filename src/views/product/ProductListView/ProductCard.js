@@ -1,6 +1,8 @@
-import React from 'react';
+import React,{useState}  from 'react';
 import PropTypes from 'prop-types';
 import clsx from 'clsx';
+import CustomDialog from "./Dialog/CustomDialog"
+import Details from "./PropertyDetails/Index"
 import {
   Button,
   Box,
@@ -34,15 +36,28 @@ const useStyles = makeStyles((theme) => ({
 
 const ProductCard = ({ className, product, ...rest }) => {
   const classes = useStyles();
+  const [open, setOpen] = useState(false)
 
-  const url="http://127.0.0.1:1234/image/downloadProfile/5f7005e86ab4f20e8463b1f8"
+  const url="http://127.0.0.1:1234/image/downloadProfile/"+product.id
+
+
+  const openDialog = ()=>{
+
+    setOpen(true);
+
+  }
+
+  const closeDialog = ()=> {
+    setOpen(false);
+  }
 
   return (
+    <div>
     <Card
       className={clsx(classes.root, className)}
       {...rest}
     >
-      <CardContent>
+      <CardContent onClick={openDialog}>
       <CardMedia
           className={classes.media}
           image={url}
@@ -112,6 +127,8 @@ const ProductCard = ({ className, product, ...rest }) => {
         </Grid>
       </Box>
     </Card>
+    <CustomDialog value={open} onClose={closeDialog} ><Details id={product.id} onClose={closeDialog}/></CustomDialog>
+    </div>
   );
 };
 
