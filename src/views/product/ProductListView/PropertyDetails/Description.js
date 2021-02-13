@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{useState} from 'react';
 import { Grid, Paper,Typography, makeStyles, List,ListItem, ListItemIcon, ListItemText, Button } from '@material-ui/core';
 import FullscreenIcon from '@material-ui/icons/Fullscreen';
 import HotelIcon from '@material-ui/icons/Hotel';
@@ -30,6 +30,19 @@ function Description(props) {
     const isloggedin = useSelector(state => state.login)
     const userId     = useSelector(state => state.userdata)
     const isLiked=false;
+    const [data,setData] = useState("");
+    const [load,setLoad] = useState(false);
+     
+    const url = process.env.REACT_APP_IP+"property/getById/"+props.id
+
+    if(!load)
+    Axios.get(url).then( res => { 
+        setData(res.data)
+        setLoad(true)
+        console.log("test")
+    })
+
+
 
     const Approve = () => {
         const url= process.env.REACT_APP_IP+"property/approve/"+props.id
@@ -49,30 +62,30 @@ function Description(props) {
                 <Grid item sm={1}></Grid>
                 <Grid item sm={10}>
                     <Paper className={classes.paper}>
-                        <Typography variant="h4" color="textSecondary">Home <FavoriteIcon color="secondary"/></Typography>
-                        <Typography variant="h6" color="secondary">Br 2,500,000</Typography>
+                        <Typography variant="h4" color="textSecondary">{data.titile} <FavoriteIcon color="secondary"/></Typography>
+                        <Typography variant="h6" color="secondary">Br {data.price}</Typography>
                       
                         <Grid container>
                             <Grid item sm={6}>
                        <List>
                             <ListItem>
                                 <ListItemIcon><FullscreenIcon/></ListItemIcon>
-                                <ListItemText>2500square meter</ListItemText>
+                                <ListItemText>{data.area} square meter</ListItemText>
                             </ListItem>
 
                             <ListItem>
                                 <ListItemIcon><HotelIcon/></ListItemIcon>
-                                <ListItemText>3</ListItemText>
+                                <ListItemText>{data.no_Of_BedRooms}</ListItemText>
                             </ListItem>
 
                             <ListItem>
                                 <ListItemIcon><BathtubIcon/></ListItemIcon>
-                                <ListItemText>2</ListItemText>
+                                <ListItemText>{data.no_of_Bathrooms}</ListItemText>
                             </ListItem>
 
                             <ListItem>
                                 <ListItemIcon><RoomIcon/></ListItemIcon>
-                                <ListItemText>Bishoftu</ListItemText>
+                                <ListItemText>{data.city}</ListItemText>
                             </ListItem>
 
                        </List>
@@ -80,7 +93,7 @@ function Description(props) {
                        </Grid>
 
                        <Grid item sm={6}>
-                            <Button variant="contained" color="secondary" disabled>For sale</Button>
+                            <Button variant="contained" color="secondary" disabled>{data.propertyFor}</Button>
 
                             <List>
                                 <ListItem>
@@ -90,10 +103,11 @@ function Description(props) {
                             </List>
                        </Grid>
 
-                       <Grid item sm={12}>
+
+                <Grid item sm={12}>
                            <Typography variant="h5" >Description</Typography>
 
-                           <Typography variant="body1" color="textSecondary">WE VALUE YOUR SAFETY ABOVE EVERYTHING. NEVER PAY MONEY BEFORE VIEWING A PROPERTY, PLEASE REPORT ANY USER REQUESTING UPFRONT PAYMENT USING THE REPORT ABUSE BUTTON ON THIS PAGE. FOR MORE TOP TIPS ON KEEPING SAFE, SEE OUR SAFETY PAGES.</Typography>
+                           <Typography variant="body1" color="textSecondary">{data.description}</Typography>
                             <Typography align="right"> <Button onClick={Approve} variant="contained" color="secondary">Approve</Button></Typography>
                        </Grid>
                        </Grid>

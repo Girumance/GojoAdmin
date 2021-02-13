@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import clsx from 'clsx';
 import PropTypes from 'prop-types';
 import {
@@ -13,6 +13,7 @@ import {
 } from '@material-ui/core';
 import ArrowDownwardIcon from '@material-ui/icons/ArrowDownward';
 import MoneyIcon from '@material-ui/icons/Money';
+import Axios from 'axios';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -33,7 +34,18 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const Budget = ({ className, ...rest }) => {
-  const classes = useStyles();
+const classes = useStyles();
+const [load,setLoad] = useState(false)
+const [data,setData] =  useState("")
+if(!load){
+
+
+  const url=process.env.REACT_APP_IP+"property/count"
+  Axios.get(url).then( res => {
+      setData(res.data)
+  })
+}
+
 
   return (
     <Card
@@ -52,13 +64,13 @@ const Budget = ({ className, ...rest }) => {
               gutterBottom
               variant="h6"
             >
-              BUDGET
+              Total Property
             </Typography>
             <Typography
               color="textPrimary"
               variant="h3"
             >
-              $24,000
+              {data}
             </Typography>
           </Grid>
           <Grid item>

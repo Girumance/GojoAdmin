@@ -15,7 +15,8 @@ import {
   TablePagination,
   TableRow,
   Typography,
-  makeStyles
+  makeStyles,
+  Button
 } from '@material-ui/core';
 import getInitials from 'src/utils/getInitials';
 
@@ -100,13 +101,13 @@ const Results = ({ className, customers, ...rest }) => {
                   Email
                 </TableCell>
                 <TableCell>
-                  Location
-                </TableCell>
-                <TableCell>
                   Phone
                 </TableCell>
                 <TableCell>
-                  Registration date
+                  Registration data
+                </TableCell>
+                <TableCell>
+                  Delete
                 </TableCell>
               </TableRow>
             </TableHead>
@@ -139,7 +140,7 @@ const Results = ({ className, customers, ...rest }) => {
                         color="textPrimary"
                         variant="body1"
                       >
-                        {customer.firstName}
+                        {customer.firstName+" "+customer.lastName}
                       </Typography>
                     </Box>
                   </TableCell>
@@ -147,13 +148,13 @@ const Results = ({ className, customers, ...rest }) => {
                     {customer.email}
                   </TableCell>
                   <TableCell>
-                    {customer.city}
+                  {customer.phoneNumber}
                   </TableCell>
                   <TableCell>
-                    {customer.phoneNumber}
+                  {moment(customer.createdAt).format('DD/MM/YYYY')}
                   </TableCell>
                   <TableCell>
-                    {moment(customer.createdAt).format('DD/MM/YYYY')}
+                    <Button variant="contained" color="secondary">Delete</Button>
                   </TableCell>
                 </TableRow>
               ))}

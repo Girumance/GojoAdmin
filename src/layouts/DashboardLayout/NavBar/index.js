@@ -26,12 +26,6 @@ import {
 } from 'react-feather';
 import NavItem from './NavItem';
 
-const user = {
-  avatar: '/static/images/avatars/avatar_6.png',
-  jobTitle: 'Senior Developer',
-  name: 'Katarina Smith'
-};
-
 const items = [
   {
     href: '/app/dashboard',
@@ -48,11 +42,7 @@ const items = [
     icon: ShoppingBagIcon,
     title: 'Pending Properties'
   },
-  {
-    href: '/login',
-    icon: LockIcon,
-    title: 'Login'
-  },
+  
   {
     href: '/app/register',
     icon: UserPlusIcon,
@@ -74,11 +64,7 @@ const items = [
     icon: SettingsIcon,
     title: 'Settings'
   },
-  {
-    href: '/404',
-    icon: AlertCircleIcon,
-    title: 'Error'
-  }
+  
 ];
 
 const useStyles = makeStyles(() => ({
@@ -100,7 +86,15 @@ const useStyles = makeStyles(() => ({
 const NavBar = ({ onMobileClose, openMobile }) => {
   const classes = useStyles();
   const location = useLocation();
-  const userdata = useSelector(state => state.userdata);
+
+  const userdata = useSelector( state => state.userdata)
+
+
+  const user = {
+    avatar: '/static/images/avatars/avatar_6.png',
+    jobTitle: userdata.type,
+    name: userdata.firstName + " " + userdata.lastName
+  };
 
   useEffect(() => {
     if (openMobile && onMobileClose) {
@@ -167,13 +161,13 @@ const NavBar = ({ onMobileClose, openMobile }) => {
           gutterBottom
           variant="h4"
         >
-          Need more?
+          GoJO Homes
         </Typography>
         <Typography
           align="center"
           variant="body2"
         >
-          Upgrade to PRO version and access 20 more screens
+          Where you Get All You Need!!
         </Typography>
         <Box
           display="flex"
@@ -183,10 +177,10 @@ const NavBar = ({ onMobileClose, openMobile }) => {
           <Button
             color="primary"
             component="a"
-            href="https://react-material-kit.devias.io"
+            href="http:/127.0.0.1:3000"
             variant="contained"
           >
-            See PRO version
+            GoJO Homes
           </Button>
         </Box>
       </Box>

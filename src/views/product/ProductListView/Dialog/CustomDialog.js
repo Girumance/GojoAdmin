@@ -33,6 +33,7 @@ class AlertDialog extends React.Component {
         onClose={this.handleClose}
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"
+        maxWidth="lg"
       >
 
         <Paper>

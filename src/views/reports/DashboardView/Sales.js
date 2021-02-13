@@ -37,7 +37,7 @@ const Sales = ({ className, ...rest }) => {
         label: 'Last year'
       }
     ],
-    labels: ['1 Aug', '2 Aug', '3 Aug', '4 Aug', '5 Aug', '6 Aug']
+    labels: ['1 Feb', '2 Feb', '3 Feb', '4 Feb', '5 Feb', '6 Feb']
   };
 
   const options = {
@@ -110,7 +110,7 @@ const Sales = ({ className, ...rest }) => {
             Last 7 days
           </Button>
         )}
-        title="Latest Sales"
+        title="Properties"
       />
       <Divider />
       <CardContent>
