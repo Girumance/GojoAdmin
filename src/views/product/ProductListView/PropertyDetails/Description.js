@@ -8,7 +8,6 @@ import ScheduleIcon from '@material-ui/icons/Schedule';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import Map from "./Map"
 import {useSelector} from "react-redux"
-import { red } from '@material-ui/core/colors';
 import Axios from 'axios';
 
 const useStyles=makeStyles({

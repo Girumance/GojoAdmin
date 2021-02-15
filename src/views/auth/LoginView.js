@@ -4,6 +4,7 @@ import * as Yup from 'yup';
 import { Formik } from 'formik';
 import {useDispatch} from "react-redux"
 import {Adduserdata,Login} from "../../action"
+import {ADDSNAKBARDATA} from "./../../action"
 import {
   Box,
   Button,
@@ -18,6 +19,7 @@ import FacebookIcon from 'src/icons/Facebook';
 import GoogleIcon from 'src/icons/Google';
 import Page from 'src/components/Page';
 import Axios from 'axios';
+import SnakBar from "./../../layouts/DashboardLayout/SnakBar"
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -47,10 +49,33 @@ const LoginView = (props) => {
     const url=process.env.REACT_APP_IP+"login"
 
     Axios.post(url,data).then( res =>{
-      if(res.data){
+      if(res.data.type=="ADMIN" || res.data.type=="SUPERADMIN" ){
         dispatch(Adduserdata(res.data))
         dispatch(Login())
       navigate('/app/dashboard', { replace: true });
+      let message="";
+        let type="";
+            message="Wellcome back "+res.data.firstName+"!"
+            type="success"
+      const dataa={
+        message,
+        type,
+        open:true
+    }
+  
+      dispatch(ADDSNAKBARDATA(dataa))
+    }else{
+      let message="";
+        let type="";
+            message="Invalid username and Pssword!!"
+            type="error"
+      const dataa={
+        message,
+        type,
+        open:true
+    }
+  
+      dispatch(ADDSNAKBARDATA(dataa))
     }
     }
     )
@@ -69,10 +94,11 @@ const LoginView = (props) => {
         height="100%"
         justifyContent="center"
       >
+        <SnakBar/>
         <Container maxWidth="sm">
           <Formik
             initialValues={{
-              email: 'demo@devias.io',
+              email: 'haramaya@gmail.com',
               password: 'Password123'
             }}
             validationSchema={Yup.object().shape({
@@ -83,6 +109,8 @@ const LoginView = (props) => {
               onLogin()
             }}
           >
+
+            
             {({
               errors,
               handleBlur,

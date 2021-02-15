@@ -73,6 +73,8 @@ const Results = ({ className, customers, ...rest }) => {
     setPage(newPage);
   };
 
+  
+
   return (
     <Card
       className={clsx(classes.root, className)}
@@ -132,7 +134,7 @@ const Results = ({ className, customers, ...rest }) => {
                     >
                       <Avatar
                         className={classes.avatar}
-                        src={customer.avatarUrl}
+                        src="/static/user.jpg"
                       >
                         {getInitials(customer.name)}
                       </Avatar>

@@ -15,6 +15,8 @@ import {
 } from '@material-ui/core';
 import Page from 'src/components/Page';
 import Axios from 'axios';
+import {useDispatch} from "react-redux"
+import {ADDSNAKBARDATA} from "./../../action"
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -28,6 +30,7 @@ const useStyles = makeStyles((theme) => ({
 const RegisterView = () => {
   const classes = useStyles();
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
 
   const onRegister = () =>{
@@ -52,7 +55,18 @@ const RegisterView = () => {
 
       Axios.post(url,data).then( res => {
 
-        console.log(res.data)
+        let message="";
+        let type="";
+            message="Admin Has Registered"
+            type="success"
+
+            const dataa={
+              message,
+              type,
+              open:true
+          }
+        
+            dispatch(ADDSNAKBARDATA(dataa))
 
       })
 
@@ -193,27 +207,8 @@ const RegisterView = () => {
                   display="flex"
                   ml={-1}
                 >
-                  <Checkbox
-                    checked={values.policy}
-                    name="policy"
-                    onChange={handleChange}
-                  />
-                  <Typography
-                    color="textSecondary"
-                    variant="body1"
-                  >
-                    I have read the
-                    {' '}
-                    <Link
-                      color="primary"
-                      component={RouterLink}
-                      to="#"
-                      underline="always"
-                      variant="h6"
-                    >
-                      Terms and Conditions
-                    </Link>
-                  </Typography>
+                 
+                 
                 </Box>
                 {Boolean(touched.policy && errors.policy) && (
                   <FormHelperText error>
@@ -229,23 +224,10 @@ const RegisterView = () => {
                     type="submit"
                     variant="contained"
                   >
-                    Sign up now
+                    ADD now
                   </Button>
                 </Box>
-                <Typography
-                  color="textSecondary"
-                  variant="body1"
-                >
-                  Have an account?
-                  {' '}
-                  <Link
-                    component={RouterLink}
-                    to="/login"
-                    variant="h6"
-                  >
-                    Sign in
-                  </Link>
-                </Typography>
+                
               </form>
             )}
           </Formik>

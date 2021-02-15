@@ -20,3 +20,14 @@ export const Adduserdata  = (data) =>{
             }
 
 }
+
+
+export const ADDSNAKBARDATA  = (data) =>{
+
+    return{
+        type: "ADD_SNAKDATA",
+        data:data
+    }
+
+}
+

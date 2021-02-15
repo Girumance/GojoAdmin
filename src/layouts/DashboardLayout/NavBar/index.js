@@ -3,6 +3,7 @@ import { Link as RouterLink, useLocation } from 'react-router-dom';
 import {useSelector} from "react-redux"
 import PropTypes from 'prop-types';
 import SupervisorAccountOutlinedIcon from '@material-ui/icons/SupervisorAccountOutlined';
+import SnakBar from "./../SnakBar"
 import {
   Avatar,
   Box,
@@ -174,6 +175,7 @@ const NavBar = ({ onMobileClose, openMobile }) => {
           justifyContent="center"
           mt={2}
         >
+           <SnakBar/>
           <Button
             color="primary"
             component="a"
