@@ -34,9 +34,10 @@ const LoginView = (props) => {
   const classes = useStyles();
   const navigate = useNavigate();
   const dispatch = useDispatch();
+
   
 
-  const onLogin= ()=>{
+  const getInput= ()=> {
     const email=document.getElementById("email").value
     const password=document.getElementById("password").value
 
@@ -45,6 +46,16 @@ const LoginView = (props) => {
         username:email,
         password:password
     }
+
+    localStorage.setItem("username",email)
+    localStorage.setItem("password",password)
+    onLogin(data);
+    
+  }
+  
+
+  const onLogin= (data)=>{
+   
 
     const url=process.env.REACT_APP_IP+"login"
 
@@ -62,6 +73,8 @@ const LoginView = (props) => {
         type,
         open:true
     }
+
+   
   
       dispatch(ADDSNAKBARDATA(dataa))
     }else{
@@ -82,6 +95,20 @@ const LoginView = (props) => {
 
 
   }
+
+
+  if(localStorage.getItem("username")!="none"){
+
+    const data = {
+      username:localStorage.getItem("username"),
+      password:localStorage.getItem("password")
+  }
+
+  onLogin(data)
+
+
+  }
+
 
   return (
     <Page
@@ -106,7 +133,7 @@ const LoginView = (props) => {
               password: Yup.string().max(255).required('Password is required')
             })}
             onSubmit={() => {
-              onLogin()
+              getInput()
             }}
           >
 

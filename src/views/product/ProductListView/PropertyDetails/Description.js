@@ -9,6 +9,7 @@ import FavoriteIcon from '@material-ui/icons/Favorite';
 import Map from "./Map"
 import {useSelector} from "react-redux"
 import Axios from 'axios';
+import UserDetails from "./UserDetails"
 
 const useStyles=makeStyles({
     root:{
@@ -31,6 +32,7 @@ function Description(props) {
     const isLiked=false;
     const [data,setData] = useState("");
     const [load,setLoad] = useState(false);
+    const [userData, setUserData] = useState([]);
      
     const url = process.env.REACT_APP_IP+"property/getById/"+props.id
 
@@ -38,7 +40,14 @@ function Description(props) {
     Axios.get(url).then( res => { 
         setData(res.data)
         setLoad(true)
-        console.log("test")
+        //console.log(res.data)
+        const url1 = process.env.REACT_APP_IP+"profile/get/"+res.data.ownerId
+        Axios.get(url1).then( res => {
+         console.log(res.data)
+                setUserData(res.data)
+            
+        })
+        
     })
 
 
@@ -107,7 +116,8 @@ function Description(props) {
                            <Typography variant="h5" >Description</Typography>
 
                            <Typography variant="body1" color="textSecondary">{data.description}</Typography>
-                            <Typography align="right"> <Button onClick={Approve} variant="contained" color="secondary">Approve</Button></Typography>
+                           
+                            <Typography align="right">{data.payed==false ? "This user hasn't payed yet!": ""}  <Button onClick={Approve} variant="contained"  disabled={data.payed==false ? true : false}  color="secondary">Approve</Button></Typography>
                        </Grid>
                        </Grid>
 
@@ -118,7 +128,7 @@ function Description(props) {
                 <Grid item sm={1}></Grid>
 
             </Grid>
-           
+            <UserDetails data={userData}/>
                 <Paper elevation={1} className={classes.map}>
                 <Map/>
                 </Paper>

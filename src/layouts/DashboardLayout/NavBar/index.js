@@ -140,7 +140,7 @@ const NavBar = ({ onMobileClose, openMobile }) => {
       <Box p={2}>
         <List>
           {items.map((item) => (
-             userdata.type==="USER" && item.title==="Add Admin" ? console.log("test") : 
+             userdata.type==="ADMIN" && (item.title==="Add Admin"|| item.title==="Admins") ? console.log("test") : 
 
             <NavItem
               href={item.href}
@@ -175,7 +175,7 @@ const NavBar = ({ onMobileClose, openMobile }) => {
           justifyContent="center"
           mt={2}
         >
-           <SnakBar/>
+           
           <Button
             color="primary"
             component="a"

@@ -15,7 +15,7 @@ import MenuIcon from '@material-ui/icons/Menu';
 import NotificationsIcon from '@material-ui/icons/NotificationsOutlined';
 import InputIcon from '@material-ui/icons/Input';
 import Logo from 'src/components/Logo';
-
+import Singout from "./../MainLayout/Singout"
 const useStyles = makeStyles(() => ({
   root: {},
   avatar: {
@@ -65,6 +65,7 @@ const TopBar = ({
             <MenuIcon />
           </IconButton>
         </Hidden>
+        <Singout/>
       </Toolbar>
     </AppBar>
   );

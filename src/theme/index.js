@@ -20,6 +20,9 @@ const theme = createMuiTheme({
       secondary: colors.blueGrey[600]
     }
   },
+  shape:{
+    borderRadius:15
+  },
   shadows,
   typography
 });
